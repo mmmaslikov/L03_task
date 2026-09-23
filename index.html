@@ -360,7 +360,7 @@
   .ethalon-toggle-text{
     font-size:14px;
     color:var(--text-2);
-    max-width:420px;
+    max-width:480px;
     line-height:1.5;
   }
   .ethalon-toggle-text b{color:var(--text)}
@@ -474,6 +474,17 @@
     border-radius:4px;
     color:var(--accent);
   }
+  .task-card-note{
+    display:flex; align-items:flex-start; gap:8px;
+    padding:10px 12px;
+    background:var(--warn-soft);
+    border-radius:10px;
+    font-size:13px;
+    color:#78350f;
+    margin-bottom:12px;
+    line-height:1.5;
+  }
+  .task-card-note b{font-weight:700}
 
   /* ---------- Алгоритм ---------- */
   .algo{
@@ -502,6 +513,13 @@
     line-height:1.5;
   }
   .algo-note b{font-weight:700}
+  .algo-note code{
+    font-family:var(--mono);
+    font-size:12px;
+    background:rgba(255,255,255,.7);
+    padding:1px 5px;
+    border-radius:4px;
+  }
 
   /* ---------- Промпт ---------- */
   .prompt-box{
@@ -563,6 +581,7 @@
   }
   .ai-link-dot.deepseek{background:#4d6bfe}
   .ai-link-dot.alice{background:#fc3f1d}
+  .ai-link-dot.qwen{background:#615ced}
 
   /* ---------- Чек-лист ---------- */
   .checklist{
@@ -764,8 +783,7 @@ const COURSE = {
   subtitle: "Формы, таблицы, медиа-элементы",
   teacher: "Масликов М. М.",
   grade: "10–11 класс",
-  time: "80 минут",
-  order: "Северный пирог"
+  time: "80 минут"
 };
 
 /* Термины занятия */
@@ -810,7 +828,7 @@ const TAGS = [
   { code:"required", desc:"Атрибут «поле обязательно». Браузер не даст отправить форму, пока оно пустое.", used:false, pair:false }
 ];
 
-/* Эталонный код */
+/* Эталонный код — страница буфета с формой, таблицей и картинкой */
 const REFERENCE_CODE = `<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -898,28 +916,31 @@ const REFERENCE_CODE = `<!DOCTYPE html>
 </body>
 </html>`;
 
-/* ТЗ для практики */
+/* ТЗ для практики — продолжение кода с прошлого урока */
 const TASKS = [
   {
     id:"t1",
-    title:"Форма предзаказа",
-    context:"Форма предзаказа для школьного буфета",
-    desc:"Разметь форму: имя (<code>&lt;input type=\"text\"&gt;</code>), выбор пирога (<code>&lt;select&gt;</code> с тремя <code>&lt;option&gt;</code>), время (<code>&lt;input type=\"time\"&gt;</code>), количество от 1 до 5 (<code>&lt;input type=\"number\" min=\"1\" max=\"5\"&gt;</code>), кнопка (<code>&lt;button type=\"submit\"&gt;</code>). У каждого поля — <code>&lt;label&gt;</code> с <code>for</code>, совпадающим с <code>id</code> поля.",
-    placeholder:"<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Форма предзаказа</title>\n</head>\n<body>\n  <h1>Записаться в буфет</h1>\n  <form>\n    <!-- твои поля -->\n  </form>\n</body>\n</html>"
+    title:"Страница-визитка + форма",
+    context:"Страница-визитка с формой записи на встречу",
+    desc:"Открой свой <code>index.html</code> с прошлого урока (страница-визитка). Добавь в <code>&lt;main&gt;</code> новую <code>&lt;section&gt;</code> с формой: имя (<code>&lt;input type=\"text\"&gt;</code>), телефон (<code>&lt;input type=\"tel\"&gt;</code>), удобное время (<code>&lt;input type=\"time\"&gt;</code>), кнопка (<code>&lt;button type=\"submit\"&gt;</code>). У каждого поля — <code>&lt;label&gt;</code> с <code>for</code>, совпадающим с <code>id</code> поля.",
+    note:"Сначала вставь свой код с прошлого урока целиком, а потом добавь новую секцию с формой. Не удаляй то, что уже написано.",
+    placeholder:"<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Моё имя</title>\n</head>\n<body>\n  <!-- СНАЧАЛА ВСТАВЬ СЮДА СВОЙ КОД С ПРОШЛОГО УРОКА -->\n\n  <!-- ПОТОМ ДОБАВЬ НОВУЮ СЕКЦИЮ С ФОРМОЙ -->\n</body>\n</html>"
   },
   {
     id:"t2",
-    title:"Таблица часов работы",
-    context:"Таблица часов работы буфета",
-    desc:"Сделай таблицу с подписью <code>&lt;caption&gt;</code>, заголовками столбцов (<code>&lt;th scope=\"col\"&gt;</code>) и заголовками строк (<code>&lt;th scope=\"row\"&gt;</code>). Минимум три строки данных: будни, суббота, воскресенье. Используй <code>&lt;thead&gt;</code> и <code>&lt;tbody&gt;</code>.",
-    placeholder:"<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Часы работы</title>\n</head>\n<body>\n  <h1>Часы работы</h1>\n  <table>\n    <!-- твоя таблица -->\n  </table>\n</body>\n</html>"
+    title:"Список покупок + таблица",
+    context:"Список покупок с таблицей цен",
+    desc:"Открой свой <code>index.html</code> со списком покупок. Добавь в <code>&lt;main&gt;</code> новую <code>&lt;section&gt;</code> с таблицей: заголовок <code>&lt;caption&gt;</code>, заголовки столбцов <code>&lt;th scope=\"col\"&gt;</code> (например, «Товар» и «Цена»), минимум три строки данных с заголовками строк <code>&lt;th scope=\"row\"&gt;</code>. Используй <code>&lt;thead&gt;</code> и <code>&lt;tbody&gt;</code>.",
+    note:"Сначала вставь свой код со списком покупок целиком, а потом добавь новую секцию с таблицей. Старый список не трогай.",
+    placeholder:"<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Список покупок</title>\n</head>\n<body>\n  <!-- СНАЧАЛА ВСТАВЬ СЮДА СВОЙ КОД С ПРОШЛОГО УРОКА -->\n\n  <!-- ПОТОМ ДОБАВЬ НОВУЮ СЕКЦИЮ С ТАБЛИЦЕЙ -->\n</body>\n</html>"
   },
   {
     id:"t3",
-    title:"Картинка с подписью",
-    context:"Страница с картинкой пирога",
-    desc:"Вставь картинку через <code>&lt;figure&gt;</code>. Внутри — <code>&lt;img&gt;</code> с осмысленным <code>alt</code> (не «картинка», а описание содержимого) и <code>&lt;figcaption&gt;</code> с подписью. Картинку можно взять из файла <code>pie.svg</code> или любую другую.",
-    placeholder:"<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Наш пирог</title>\n</head>\n<body>\n  <h1>Наш фирменный пирог</h1>\n  <figure>\n    <!-- твоя картинка и подпись -->\n  </figure>\n</body>\n</html>"
+    title:"Страница любимой книги + картинка",
+    context:"Страница любимой книги с обложкой",
+    desc:"Открой свой <code>index.html</code> со страницей книги. Добавь в <code>&lt;main&gt;</code> новую <code>&lt;section&gt;</code> с картинкой: обёртка <code>&lt;figure&gt;</code>, внутри — <code>&lt;img&gt;</code> с осмысленным <code>alt</code> (не «картинка», а описание обложки) и <code>&lt;figcaption&gt;</code> с подписью. Картинку можно взять из файла <code>cover.jpg</code> или любую другую — главное, чтобы файл лежал в той же папке, что и <code>index.html</code>.",
+    note:"Сначала вставь свой код со страницей книги целиком, а потом добавь новую секцию с картинкой. Не удаляй текст о книге.",
+    placeholder:"<!DOCTYPE html>\n<html lang=\"ru\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Название книги</title>\n</head>\n<body>\n  <!-- СНАЧАЛА ВСТАВЬ СЮДА СВОЙ КОД С ПРОШЛОГО УРОКА -->\n\n  <!-- ПОТОМ ДОБАВЬ НОВУЮ СЕКЦИЮ С КАРТИНКОЙ -->\n</body>\n</html>"
   }
 ];
 
@@ -1086,12 +1107,11 @@ function renderHero(){
     <section class="hero" aria-labelledby="hero-title">
       <span class="hero-badge">● Занятие 3 из 24</span>
       <h1 id="hero-title">${escapeHtml(COURSE.subtitle)}</h1>
-      <p>Сегодня страница буфета «${escapeHtml(COURSE.order)}» начинает принимать данные: форма предзаказа, таблица часов работы, картинка с подписью.</p>
+      <p>Сегодня страницы, которые ты написал на прошлом уроке, начинают принимать данные и показывать картинки. Добавляем форму, таблицу и изображение.</p>
       <div class="hero-meta">
         <span class="chip">👤 <b>${escapeHtml(COURSE.teacher)}</b></span>
         <span class="chip">🎓 ${escapeHtml(COURSE.grade)}</span>
         <span class="chip">⏱ ${escapeHtml(COURSE.time)}</span>
-        <span class="chip">🥧 Заказ: <b>${escapeHtml(COURSE.order)}</b></span>
       </div>
       <button class="btn btn-primary btn-lg" data-action="start">
         Начать работу
@@ -1149,12 +1169,12 @@ function renderTheory(){
 
       <div class="divider"></div>
 
-      <h3 class="sub-title">Эталон: страница буфета с формой и таблицей</h3>
-      <p class="section-sub" style="margin-bottom:12px">Вот как должна выглядеть разметка после занятия. Открой эталон только после того, как напишешь свой код.</p>
+      <h3 class="sub-title">Эталон: страница буфета с формой, таблицей и картинкой</h3>
+      <p class="section-sub" style="margin-bottom:12px">Вот как должна выглядеть разметка после занятия. Открой эталон только после того, как напишешь свой код. Это пример того, как устроены форма, таблица и картинка — но у тебя страницы про другое, поэтому списывать целиком не получится.</p>
 
       <div class="ethalon-toggle">
         <p class="ethalon-toggle-text">
-          <b>Я написал код для школьного буфета и хочу сравнить с эталоном.</b><br>
+          <b>Я написал код для своих трёх страниц и хочу сравнить с эталоном.</b><br>
           Нажми кнопку ниже — эталон откроется, и ты сможешь проверить свою работу.
         </p>
         <button class="btn btn-secondary" data-action="toggle-ethalon" type="button">
@@ -1206,7 +1226,7 @@ function renderPractice(){
         <div class="section-num practice">П</div>
         <div class="section-title-wrap">
           <h2 class="section-title" id="practice-title">Практика: разметка и проверка</h2>
-          <p class="section-sub">Разметь три страницы с нуля, потом проверь код через ИИ.</p>
+          <p class="section-sub">Дополни свои страницы с прошлого урока формой, таблицей и картинкой, потом проверь код через ИИ.</p>
         </div>
         <span class="section-status ${practiceDone ? "done" : ""}">${tasksDone}/3 ТЗ + ИИ</span>
       </div>
@@ -1226,11 +1246,15 @@ function renderPractice(){
           <li>Если вместо букв непонятные символы — значит, сохранил не в UTF-8. Пересохрани.</li>
         </ol>
         <div class="algo-note">
+          <b>Про картинки:</b> чтобы картинка отобразилась на странице, файл с картинкой должен лежать <b>в той же папке</b>, что и <code>index.html</code>. Если картинка называется <code>cover.jpg</code>, то в коде пиши <code>&lt;img src="cover.jpg" alt="…"&gt;</code> — и браузер найдёт её автоматически. Если файла нет или он лежит в другой папке — вместо картинки будет значок «сломано».
+        </div>
+        <div class="algo-note">
           <b>Альтернатива:</b> если блокнот не получается или хочешь видеть результат сразу — найди в интернете <b>«Онлайн HTML-редактор»</b>. Там ты пишешь код слева, а справа видишь, как он выглядит на странице. Так быстрее проверять свои правки.
         </div>
       </div>
 
       <h3 class="sub-title">Три задания</h3>
+      <p class="section-sub" style="margin-bottom:12px">Каждое задание — продолжение твоей страницы с прошлого урока. Сначала вставь свой старый код, потом добавь новый элемент.</p>
       <div class="tasks-list">
         ${TASKS.map(renderTaskCard).join("")}
       </div>
@@ -1248,6 +1272,10 @@ function renderPractice(){
         <a class="ai-link" href="https://alice.yandex.ru/" target="_blank" rel="noopener">
           <span class="ai-link-dot alice"></span>
           Яндекс Алиса
+        </a>
+        <a class="ai-link" href="https://chat.qwen.ai/" target="_blank" rel="noopener">
+          <span class="ai-link-dot qwen"></span>
+          Qwen
         </a>
       </div>
 
@@ -1335,9 +1363,13 @@ function renderTaskCard(t){
         <span class="task-card-num">${TASKS.indexOf(t) + 1}</span>
         <span class="task-card-title">${escapeHtml(t.title)}</span>
       </div>
+      <div class="task-card-note">
+        <span>💡</span>
+        <span><b>Продолжение прошлого урока.</b> ${t.note}</span>
+      </div>
       <p class="task-card-desc">${t.desc}</p>
       <div class="field">
-        <label class="field-label" for="task-code-${t.id}">Твой код</label>
+        <label class="field-label" for="task-code-${t.id}">Твой код <span class="field-hint">(старый код + новый элемент)</span></label>
         <textarea class="field-input code ${taskState.code.trim() ? "filled" : ""}"
           id="task-code-${t.id}" data-task-key="code" data-task-id="${t.id}"
           placeholder="${escapeHtml(t.placeholder)}">${escapeHtml(taskState.code)}</textarea>
