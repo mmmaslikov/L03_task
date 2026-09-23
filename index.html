@@ -340,7 +340,6 @@
   }
   .code-block .tk-tag{color:#7dd3fc}
   .code-block .tk-attr{color:#fde68a}
-  .code-block .tk-str{color:#86efac}
   .code-block .tk-com{color:#64748b; font-style:italic}
   .code-block .tk-txt{color:#e2e8f0}
 
@@ -730,7 +729,7 @@
       color:#0f172a !important;
       border:1px solid #cbd5e1;
     }
-    .code-block .tk-tag, .code-block .tk-attr, .code-block .tk-str, .code-block .tk-txt{
+    .code-block .tk-tag, .code-block .tk-attr, .code-block .tk-txt{
       color:#0f172a !important;
     }
     .check-item.checked .check-box{
@@ -828,7 +827,7 @@ const TAGS = [
   { code:"required", desc:"Атрибут «поле обязательно». Браузер не даст отправить форму, пока оно пустое.", used:false, pair:false }
 ];
 
-/* Эталонный код — страница буфета с формой, таблицей и картинкой */
+/* Эталонный код */
 const REFERENCE_CODE = `<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -916,7 +915,7 @@ const REFERENCE_CODE = `<!DOCTYPE html>
 </body>
 </html>`;
 
-/* ТЗ для практики — продолжение кода с прошлого урока */
+/* ТЗ для практики */
 const TASKS = [
   {
     id:"t1",
@@ -1625,16 +1624,15 @@ async function copyToClipboard(text, btn){
   }, 1600);
 }
 
+/* ИСПРАВЛЕННАЯ ФУНКЦИЯ ПОДСВЕТКИ (БЕЗОПАСНАЯ ДЛЯ DOM) */
 function highlightHtml(code){
   const escaped = escapeHtml(code);
   return escaped
+    // 1. Комментарии
     .replace(/(&lt;!--[\s\S]*?--&gt;)/g, '<span class="tk-com">$1</span>')
-    .replace(/(&quot;[^&]*?&quot;)/g, '<span class="tk-str">$1</span>')
-    .replace(/(&lt;\/?)([a-zA-Z0-9!]+)([\s\S]*?)(\/?&gt;)/g, function(m, open, name, attrs, close){
-      const attrsHtml = attrs.replace(/([a-zA-Z-:]+)(=)?/g, function(am, an, eq){
-        return eq ? '<span class="tk-attr">' + an + '</span>' + eq : an;
-      });
-      return '<span class="tk-tag">' + open + name + '</span>' + attrsHtml + '<span class="tk-tag">' + close + '</span>';
+    // 2. Теги и атрибуты (подсвечиваем блок целиком, не разрывая кавычки внутри атрибутов)
+    .replace(/(&lt;\/?[a-zA-Z0-9!]+)([\s\S]*?)(&gt;)/g, function(match, open, middle, close) {
+      return '<span class="tk-tag">' + open + '</span><span class="tk-attr">' + middle + '</span><span class="tk-tag">' + close + '</span>';
     });
 }
 
